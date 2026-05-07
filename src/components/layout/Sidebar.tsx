@@ -1,4 +1,5 @@
 import { LayoutDashboard, Car, MapPin, Users, Settings, X } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 import { cn } from '../common';
 
 interface SidebarProps {
@@ -7,11 +8,11 @@ interface SidebarProps {
 }
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', active: true },
-  { icon: Car, label: 'Rides' },
-  { icon: MapPin, label: 'Locations' },
-  { icon: Users, label: 'Drivers' },
-  { icon: Settings, label: 'Settings' },
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
+  { icon: Car, label: 'Rides', href: '#' },
+  { icon: MapPin, label: 'Locations', href: '#' },
+  { icon: Users, label: 'Drivers', href: '/drivers' },
+  { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
@@ -46,21 +47,28 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button
+              <NavLink
                 key={item.label}
-                className={cn(
+                to={item.href}
+                onClick={onClose}
+                end={item.href === '/'}
+                className={({ isActive }) => cn(
                   "flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors group",
-                  item.active 
+                  isActive 
                     ? "bg-primary/10 text-primary" 
                     : "text-textSecondary hover:bg-surfaceHighlight hover:text-textPrimary"
                 )}
               >
-                <Icon className={cn(
-                  "w-5 h-5 mr-3",
-                  item.active ? "text-primary" : "text-textMuted group-hover:text-textPrimary"
-                )} />
-                {item.label}
-              </button>
+                {({ isActive }) => (
+                  <>
+                    <Icon className={cn(
+                      "w-5 h-5 mr-3",
+                      isActive ? "text-primary" : "text-textMuted group-hover:text-textPrimary"
+                    )} />
+                    {item.label}
+                  </>
+                )}
+              </NavLink>
             );
           })}
         </div>
