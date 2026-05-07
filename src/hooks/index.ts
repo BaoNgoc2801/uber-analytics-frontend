@@ -7,3 +7,4 @@ export * from './useRevenueByVehicle';
 export * from './useCancellationReasons';
 export * from './usePickupHotspots';
 export * from './useTopLocations';
+export * from './useHealthCheck';

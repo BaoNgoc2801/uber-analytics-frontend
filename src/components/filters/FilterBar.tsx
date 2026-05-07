@@ -7,9 +7,10 @@ interface FilterBarProps {
   options: FilterOptions | null;
   onFilterChange: (filters: DashboardFilters) => void;
   loading?: boolean;
+  title?: string;
 }
 
-export const FilterBar = ({ options, onFilterChange, loading }: FilterBarProps) => {
+export const FilterBar = ({ options, onFilterChange, loading, title = 'Filters' }: FilterBarProps) => {
   const [filters, setFilters] = useState<DashboardFilters>({});
 
   const handleApply = () => {
@@ -28,7 +29,7 @@ export const FilterBar = ({ options, onFilterChange, loading }: FilterBarProps) 
       <div className="flex items-center justify-between mb-4">
         <h3 className="flex items-center text-lg font-medium text-textPrimary">
           <Filter className="w-5 h-5 mr-2 text-primary" />
-          Dashboard Filters
+          {title}
         </h3>
         <div className="flex space-x-3">
           <button onClick={handleReset} className="btn-secondary text-sm py-1.5">
@@ -40,24 +41,26 @@ export const FilterBar = ({ options, onFilterChange, loading }: FilterBarProps) 
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Date Range */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {/* Start Date */}
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-textSecondary">Date Range</label>
-          <div className="flex space-x-2">
-            <input
-              type="date"
-              className="w-full bg-surface border border-border rounded-lg px-3 py-2 text-sm text-textPrimary focus:outline-none focus:border-primary"
-              value={filters.start_date || ''}
-              onChange={(e) => setFilters({ ...filters, start_date: e.target.value })}
-            />
-            <input
-              type="date"
-              className="w-full bg-surface border border-border rounded-lg px-3 py-2 text-sm text-textPrimary focus:outline-none focus:border-primary"
-              value={filters.end_date || ''}
-              onChange={(e) => setFilters({ ...filters, end_date: e.target.value })}
-            />
-          </div>
+          <label className="text-xs font-medium text-textSecondary">Start Date</label>
+          <input
+            type="date"
+            className="w-full bg-surface border border-border rounded-lg px-3 py-2 text-sm text-textPrimary focus:outline-none focus:border-primary"
+            value={filters.start_date || ''}
+            onChange={(e) => setFilters({ ...filters, start_date: e.target.value })}
+          />
+        </div>
+        {/* End Date */}
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-textSecondary">End Date</label>
+          <input
+            type="date"
+            className="w-full bg-surface border border-border rounded-lg px-3 py-2 text-sm text-textPrimary focus:outline-none focus:border-primary"
+            value={filters.end_date || ''}
+            onChange={(e) => setFilters({ ...filters, end_date: e.target.value })}
+          />
         </div>
 
         {/* Vehicle Type */}
