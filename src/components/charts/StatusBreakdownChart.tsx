@@ -12,7 +12,10 @@ export const StatusBreakdownChart = ({ data }: StatusBreakdownChartProps) => {
   if (!data || data.length === 0) {
     return (
       <Card className="h-96 flex flex-col">
-        <h3 className="text-lg font-medium text-textPrimary mb-4">Ride Status Breakdown</h3>
+        <div className="mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-textMuted mb-1">Breakdown</p>
+          <h3 className="text-base font-semibold text-textPrimary">Ride Status</h3>
+        </div>
         <EmptyState className="flex-1" />
       </Card>
     );
